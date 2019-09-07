@@ -1,0 +1,5 @@
+# Ignore everything
+video/*
+
+# But these files
+!.gitkeep
