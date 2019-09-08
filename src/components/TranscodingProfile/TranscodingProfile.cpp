@@ -11,6 +11,7 @@ TranscodingProfile::TranscodingProfile(const int &_height,
                                        profile(_profile),
                                        yuvScalingFormat("nv12"),
                                        encoderType(_encoderType),
+                                       keyFrameSecondInterval(3),
                                        namePrefix(_namePrefix) {}
 
 TranscodingProfile::~TranscodingProfile() {}
@@ -20,5 +21,6 @@ const std::string TranscodingProfile::getProfile() {
             ":format=" + yuvScalingFormat + ":interp_algo=lanczos " +
             "-vcodec " + encoderType + " " +
             "-preset " + profile + " " +
+            "-force_key_frames 'expr:gte(t,n_forced*" + std::to_string(keyFrameSecondInterval) + ")' " +
             namePrefix + "_" + std::to_string(height) + "p.mp4";
 }

@@ -21,6 +21,7 @@ class TranscodingProfile {
 
         const int height;
         const int width;
+        const int keyFrameSecondInterval;
 
         const std::string namePrefix;
         const std::string averageBitrate;
