@@ -2,10 +2,12 @@
 #define _TRANSCODING_PIPELINE_H_
 
 #include <vector>
-#include <string>
+#include <string.h>
+#include <unistd.h>
 #include <cstring>
 #include <iostream>
-#include <stdlib.h>
+#include <bits/stdc++.h>
+#include <stdio.h>
 
 #include "../TranscodingProfile/TranscodingProfile.h"
 
@@ -22,7 +24,7 @@ class TranscodingPipeline {
 
         const int transcode();
     private:
-        const char* CreateFFMPEGCommand(std::vector<TranscodingProfile> profiles);
+        std::string CreateFFMPEGCommand(std::vector<TranscodingProfile> profiles);
 
         std::vector<TranscodingProfile> profiles;
         const int batchSize;

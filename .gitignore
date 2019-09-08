@@ -1,5 +1,6 @@
 # Ignore everything
 video/*
+dist/*
 
 # But these files
 !.gitkeep

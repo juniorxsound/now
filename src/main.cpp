@@ -12,9 +12,10 @@ int main(int argc, char *argv[])
 
     // Create the pipeline
     TranscodingPipeline pipeline("./video/BigBuckBunny.mp4", "h264_cuvid", 2);
+    pipeline.addProfile(TranscodingProfile(240, "2M", "fast", "h264_nvenc", "./video/transcode/BigBuckBunny"));
     pipeline.addProfile(TranscodingProfile(360, "3M", "fast", "h264_nvenc", "./video/transcode/BigBuckBunny"));
     pipeline.addProfile(TranscodingProfile(480, "4M", "fast", "h264_nvenc", "./video/transcode/BigBuckBunny"));
     pipeline.addProfile(TranscodingProfile(720, "5M", "fast", "h264_nvenc", "./video/transcode/BigBuckBunny"));
-    
-    return pipeline.transcode();
+    const int ret = pipeline.transcode();
+    return ret;
 }

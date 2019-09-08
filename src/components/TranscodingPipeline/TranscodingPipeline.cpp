@@ -30,25 +30,24 @@ const int TranscodingPipeline::transcode() {
         // Deal with the last sub batch that doesn't fill a batch
         if (i * batchSize + batchSize > profiles.size()) {
             std::vector<TranscodingProfile> projectsSlice(&profiles[start_iter], &profiles[profiles.size()]);
-            const char* cmd = this->CreateFFMPEGCommand(projectsSlice); 
-            ret = system(cmd);
+            std::string cmd = this->CreateFFMPEGCommand(projectsSlice); 
+            ret = std::system(cmd.c_str());
             return ret;
             
         }
 
         std::vector<TranscodingProfile> projectsSlice(&profiles[start_iter], &profiles[end_iter]);
-        const char* cmd = this->CreateFFMPEGCommand(projectsSlice); 
-        ret = system(cmd);
+        std::string cmd = this->CreateFFMPEGCommand(projectsSlice); 
+        ret = std::system(cmd.c_str());
     }
     return ret;
 }
 
-const char* TranscodingPipeline::CreateFFMPEGCommand(std::vector<TranscodingProfile> profiles) {
+std::string TranscodingPipeline::CreateFFMPEGCommand(std::vector<TranscodingProfile> profiles) {
     std::string cmd = ffmpegCmdPrefix + " " + inputDecoder + " -i " + inputFile;
 
     for(std::vector<TranscodingProfile>::iterator it = profiles.begin(); it != profiles.end(); it++) {
-        cmd += " " + it->getProfile() + "\n";
+        cmd += " " + it->getProfile();
     }
-
-    return const_cast<char*>(cmd.c_str());
+    return cmd;
 }
