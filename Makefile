@@ -11,16 +11,11 @@ setup: clean
 build: clean
 	docker run -w /data --rm -it -v `pwd`:/data -t ${image_tag} g++ -std=c++11 -L/src src/components/TranscodingPipeline/TranscodingPipeline.cpp src/components/TranscodingProfile/TranscodingProfile.cpp src/main.cpp -o dist/now
 
-x264:
-	docker run --gpus all -w /data --rm -it -v `pwd`:/data -t ${image_tag} \
-		-hwaccel cuvid -c:v h264_cuvid -i $(input) \
-		-filter:v scale_npp=w=-1:h=360:format=nv12:interp_algo=lanczos -vcodec h264_nvenc -preset fast $(output)_360p.mp4 \
-		-filter:v scale_npp=w=-1:h=240:format=nv12:interp_algo=lanczos -vcodec h264_nvenc -preset fast $(output)_240p.mp4
 shell:
 	docker run --gpus all -w /data --rm -it -v `pwd`:/data -t ${image_tag} /bin/bash
 
 run:
 	docker run --gpus all -w /data --rm -it -v `pwd`:/data -t ${image_tag} ./dist/now
 
-## -filter:v scale_npp=w=-1:h=720:format=nv12:interp_algo=lanczos -vcodec h264_nvenc -preset fast $(output)_720p.mp4 \
-		-filter:v scale_npp=w=-1:h=480:format=nv12:interp_algo=lanczos -vcodec h264_nvenc -preset fast $(output)_480p.mp4 \
+download:
+	curl -o video/BigBuckBunny.mp4 http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4

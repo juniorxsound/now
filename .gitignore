@@ -1,5 +1,5 @@
 # Ignore everything
-video/*
+video/**/*.mp4
 dist/*
 
 # But these files
